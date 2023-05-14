@@ -7,12 +7,12 @@ export default function Login() {
   return (
     <View style={styles.container}>
         <Image
-        source={require('../../../assets/logo_isl.webp')}
+        source={require('../../../assets/logo_sesi_red.jpg')}
         style={styles.imageLogo}
         />
-        <Text style={styles.textColor}>Olá, seja bem vindo ao meu primero aplicativo em React Native !</Text>
+        <Text style={styles.textColor}>Bem vindo !</Text>
         
-        <TextInput style={styles.inputMail} placeholder ="Nome" placeholderTextColor="#9EA0A4" />
+        <TextInput style={styles.inputMail} placeholder ="Usuário" placeholderTextColor="#9EA0A4" />
         <Button buttonText="Entrar"/>
     </View>
   );
@@ -25,20 +25,21 @@ const styles = StyleSheet.create({
     },
     inputMail:{
         borderWidth: 1,
-        borderColor: '#FFFFFF',
+        borderColor: '#DBDBDB',
+        borderBottomColor: '#000',
         width:300,
-        height: 45,
+        height: 25,
         marginBottom: 20,
-        borderRadius: 5,
-        padding: 10,
-        color: '#FFFFFF',
+        color: '#000',
         fontSize:15
   },
   imageLogo:{
-    marginBottom: 80
+    marginBottom: 50,
+    width:210,
+    height: 70
   },
   textColor:{
-    color: '#FFFFFF',
+    color: '#000',
     width:300,
     marginBottom:25,
     fontSize: 18,

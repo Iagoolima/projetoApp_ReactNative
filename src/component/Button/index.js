@@ -13,15 +13,17 @@ export default function Button(props){
 
 const styles = StyleSheet.create({
     buttonColor:{
-        backgroundColor:'#6a0dad',
+        backgroundColor:'#BABABA',
         height: 50,
         width: 150,
         justifyContent:"center",
         alignItems: 'center',
-        borderRadius: 20
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#8C8C8C'
     },
     textColor:{
-        color:'#FFFFFF'
+        color:'#000'
     }
 })
 

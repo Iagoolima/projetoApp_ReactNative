@@ -7,9 +7,7 @@ import PropTypes from 'prop-types';
 export default function Button(){
     const navigation = useNavigation();
     return(
-        <TouchableOpacity style={styles.buttonColor} onPress={ ()=> navigation.navigate('DashboardCoffee')} >
-            <Text style={styles.textColor}>Entrar</Text>
-        </TouchableOpacity>
+        
     );
 }
 

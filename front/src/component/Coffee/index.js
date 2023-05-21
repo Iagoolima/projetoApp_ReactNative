@@ -18,7 +18,7 @@ export default function Coffee(props){
     }
     
     return(
-        <Animatable.View  delay={1500} animation='flipInX' style={styles.box}>
+        <Animatable.View  delay={1000} animation='flipInX' style={styles.box}>
             <View style={styles.boxImage}>
                 <Image source={props.imageCoffe} style={styles.image}/>
             </View>

@@ -26,14 +26,14 @@ export default function DashboardCoffee() {
             <ScrollView>
                 <StatusBar backgroundColor="#DA251C" barStyle='light-content' />
 
-                <Animatable.View delay={1000} animation='fadeInLeft' style={styles.box_title}>
+                <Animatable.View delay={500} animation='fadeInLeft' style={styles.box_title}>
 
                     <Text style={styles.title}>Café da manhã</Text>
                     <Image source={require('../../../../assets/icon_coffee.png')}
                     />
                 </Animatable.View>
 
-                <Animatable.View delay={1200} animation='fadeInUp' style={styles.boxContent}>
+                <Animatable.View delay={500} animation='fadeInUp' style={styles.boxContent}>
                     <Coffee imageCoffe={bread} titleCoffee="Pão" />
                     <Coffee imageCoffe={biscoito} titleCoffee="Biscoito" />
                     <Coffee imageCoffe={choc} titleCoffee="Chocolate quente" />

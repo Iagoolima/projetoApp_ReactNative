@@ -1,12 +1,46 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Image, Text, KeyboardAvoidingView} from 'react-native';
+import { StyleSheet, View, TextInput, Image, Text, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native';
 
+import {useForm, controller} from 'react-hook-form';
+import {useNavigation} from '@react-navigation/native';
 
-import Button from '../../component/Button';
+import { yupResolver} from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 import * as Animatable from 'react-native-animatable';
+import { Controller } from 'react-hook-form';
+
+import api from '../../api';
+
+
+
+const schema = yup.object({
+  user:yup.string().max(5, 'Máximo de 5 digitos').required('Informe seu R.A')
+})
 
 export default function Login() {
+  const navigation = useNavigation();
+
+  const {control, handleSubmit, formState: {errors}} = useForm({
+    resolver: yupResolver(schema)
+  });
+
+
+  function handleSignIn(data) {
+    api.post('/login', data)
+      .then(response => {
+        // Processar a resposta do backend
+        console.log(response.data);
+        navigation.navigate('DashboardCoffee');
+      })
+      .catch(error => {
+        // Tratar erros
+        console.error(error);
+      });
+  }
+
+
+ 
 
   return (
     <View style={styles.container}>
@@ -16,7 +50,8 @@ export default function Login() {
           animation="flipInX"
           source={require('../../../../assets/logo_sesi_red.jpg')}
           style={styles.imageLogo}
-          />
+          /> 
+          
         </View>
         
         <KeyboardAvoidingView
@@ -26,10 +61,28 @@ export default function Login() {
           <Animatable.View  delay={700} animation='fadeInUp' style={styles.boxBottom}>
           
             <Text style={styles.textColor}>Bem vindo !</Text>
+
+            <Controller
+            control={control}
+            name='user'
+            render={({field:{onChange, onBlur, value} })=>(
+              <TextInput style={styles.inputUser}
+               placeholder ="Digite seu R.A"
+               placeholderTextColor="#9EA0A4"
+               keyboardType="numeric"
+
+               onBlur={onBlur}
+               onChangeText={onChange} 
+               value={value} /> 
+            )}
+            />
+
+            {errors.user && <Text style={styles.textError}>{errors.user?.message}</Text>}
             
-            
-            <TextInput style={styles.inputUser} placeholder ="Digite o Usuário" placeholderTextColor="#9EA0A4" />
-            <Button/>
+            <TouchableOpacity style={styles.buttonColor} onPress={handleSubmit(handleSignIn) }>
+              <Text style={styles.textButton}>Entrar</Text>
+            </TouchableOpacity>
+
           </Animatable.View>
         </KeyboardAvoidingView>
     </View>
@@ -71,7 +124,7 @@ const styles = StyleSheet.create({
         height: 25,
         color: '#000',
         fontSize:17,
-        marginBottom:10
+        paddingBottom:5
         
       
   },
@@ -83,8 +136,27 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     color: '#000',
     width:300,
-    marginBottom:15,
     fontSize: 25,
     textAlign:'center'
-  }
+  },
+  buttonColor:{
+    backgroundColor:'#DA251C',
+    height: 60,
+    width: 170,
+    justifyContent:"center",
+    alignItems: 'center',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#8C8C8C',
+    marginBottom:5
+},
+textButton:{
+    color:'#FFFFFF',
+    fontWeight:"bold",
+    fontSize:15
+    
+},
+textError:{
+  color:'red'
+}
 });

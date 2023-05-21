@@ -22,9 +22,7 @@
         "foregroundImage": "./assets/app/icon.png",
         "backgroundColor": "#ffffff"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
+    
   }
 }

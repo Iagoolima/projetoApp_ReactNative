@@ -26,14 +26,14 @@ export default function DashboardFood() {
             <ScrollView>
                 <StatusBar backgroundColor="#DA251C" barStyle='light-content' />
 
-                <Animatable.View delay={1000} animation='fadeInLeft' style={styles.box_title}>
+                <Animatable.View delay={500} animation='fadeInLeft' style={styles.box_title}>
 
                     <Text style={styles.title}>Almoço</Text>
                     <Image source={require('../../../../assets/icon_food.png')}
                     />
                 </Animatable.View>
 
-                <Animatable.View delay={1200} animation='fadeInUp' style={styles.boxContent}>
+                <Animatable.View delay={500} animation='fadeInUp' style={styles.boxContent}>
                     <Food imageFood={frango} titleFood="Frango" />
                     <Food imageFood={bife} titleFood="Bife de carne" />
                     <Food imageFood={batata} titleFood="Batata" />

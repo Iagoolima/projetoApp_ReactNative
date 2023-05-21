@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import Login from '../screens/login'
 import DashboardCoffee from '../screens/dashboardCoffee'
 import DashboardFood from '../screens/dashboardFood';
+import Exit from '../screens/exit';
 
 const Stack = createNativeStackNavigator();
 export default function Routes(){
@@ -23,6 +24,12 @@ export default function Routes(){
             <Stack.Screen
              name="DashboardFood"
              component={DashboardFood}
+             options={{headerShown: false}}
+             />
+
+            <Stack.Screen
+             name="Exit"
+             component={Exit}
              options={{headerShown: false}}
              />
         </Stack.Navigator>

@@ -40,11 +40,11 @@ export default function DashboardCoffee() {
                     <Coffee imageCoffe={iogurte} titleCoffee="Danone" />
                 </Animatable.View>
 
-                <View style={styles.boxContinue}>
-                    <TouchableOpacity delay={3000} animation='fadeInLeft' style={styles.buttonContinue} onPress={() => navigation.navigate('DashboardFood')}>
+                <Animatable.View style={styles.boxContinue} delay={1000} animation='fadeInLeft' >
+                    <TouchableOpacity style={styles.buttonContinue} onPress={() => navigation.navigate('DashboardFood')}>
                         <Text style={styles.textContinue}>Seguir</Text><Image source={require('../../../../assets/setaRight.png')} />
                     </TouchableOpacity>
-                </View>
+                </Animatable.View>
 
 
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         borderRadius: 10,
         flexDirection: 'row',
-        gap: 5
+        gap: 15
     },
     textContinue: {
         color: '#FFFFFF',

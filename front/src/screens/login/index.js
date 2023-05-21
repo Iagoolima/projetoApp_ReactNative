@@ -7,6 +7,7 @@ import Button from '../../component/Button';
 import * as Animatable from 'react-native-animatable';
 
 export default function Login() {
+
   return (
     <View style={styles.container}>
       

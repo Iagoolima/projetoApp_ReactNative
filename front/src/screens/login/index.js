@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, View, TextInput, Image, Text, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native';
 
 import {useForm, controller} from 'react-hook-form';
@@ -15,11 +15,13 @@ import api from '../../api';
 
 
 const schema = yup.object({
-  user:yup.string().max(5, 'Máximo de 5 digitos').required('Informe seu R.A')
+  
+  user:yup.string().max(5, 'Máximo de 5 digitos'),
 })
 
 export default function Login() {
   const navigation = useNavigation();
+  const [passwordError, setPasswordError] = useState(false);
 
   const {control, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema)
@@ -28,16 +30,17 @@ export default function Login() {
 
   function handleSignIn(data) {
     api.post('/login', data)
-      .then(response => {
-        // Processar a resposta do backend
-        console.log(response.data);
-        navigation.navigate('DashboardCoffee');
-      })
-      .catch(error => {
-        // Tratar erros
-        console.error(error);
-      });
-  }
+    .then(response => {
+      console.log(response.data);
+      navigation.navigate('DashboardCoffee');
+    })
+    .catch(error => {
+      console.error(error);
+      if (error.response && error.response.status === 401) {
+        setPasswordError(true);
+      }
+    });
+}
 
 
  
@@ -78,6 +81,7 @@ export default function Login() {
             />
 
             {errors.user && <Text style={styles.textError}>{errors.user?.message}</Text>}
+            {passwordError && <Text style={styles.textError}>Senha inválida</Text>}
             
             <TouchableOpacity style={styles.buttonColor} onPress={handleSubmit(handleSignIn) }>
               <Text style={styles.textButton}>Entrar</Text>
@@ -157,6 +161,7 @@ textButton:{
     
 },
 textError:{
-  color:'red'
+  color:'red',
+  padding:0
 }
 });

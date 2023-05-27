@@ -11,8 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-export default function DashboardFood() {
-
+export default function DashboardFood(props) {
+    const { nome } = props.route?.params || {};
     const navigation = useNavigation();
 
     const frango = require('../../../../assets/food/frango.png')
@@ -22,10 +22,10 @@ export default function DashboardFood() {
 
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <StatusBar backgroundColor="#DA251C" barStyle='light-content' />
 
+        <SafeAreaView style={styles.container}>
+            <StatusBar backgroundColor="#DA251C" barStyle='light-content' />
+            <ScrollView style={styles.view}>
                 <Animatable.View delay={500} animation='fadeInLeft' style={styles.box_title}>
 
                     <Text style={styles.title}>Almoço</Text>
@@ -38,31 +38,38 @@ export default function DashboardFood() {
                     <Food imageFood={bife} titleFood="Bife de carne" />
                     <Food imageFood={batata} titleFood="Batata" />
                     <Food imageFood={macarrao} titleFood="Macarrão" />
-                    
+
                 </Animatable.View>
 
                 <Animatable.View style={styles.boxOption} delay={1000} animation='fadeInUp'>
                     <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('DashboardCoffee')}>
-                    <Image source={require('../../../../assets/setaLeft.png')}/><Text style={styles.textOption}>Voltar</Text>
+                        <Image source={require('../../../../assets/setaLeft.png')} /><Text style={styles.textOption}>Voltar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity  style={styles.buttonContinue} onPress={() => navigation.navigate('Exit')}>
+                    <TouchableOpacity style={styles.buttonContinue} onPress={() => navigation.navigate('Exit', { nome })}>
                         <Text style={styles.textOption}>Finalizar</Text><Image source={require('../../../../assets/icon_finalizar.png')} />
                     </TouchableOpacity>
                 </Animatable.View>
-
             </ScrollView>
         </SafeAreaView>
+
     )
 }
 
 const styles = StyleSheet.create({
+    view: {
+        width: '100%',
+
+    },
     container: {
         flex: 1,
         backgroundColor: '#DA251C',
-        padding: 5
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+
     },
     box_title: {
-        height: 110,
+        height: 130,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 32,
         color: '#FFFFFF',
     },
 
@@ -84,16 +91,17 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
         paddingTop: 30,
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '99%'
     },
     boxOption: {
         width: '100%',
         height: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        gap:5,
-        paddingLeft:5,
-        paddingRight:5,
+        gap: 5,
+        paddingLeft: 5,
+        paddingRight: 5,
         flexDirection: 'row'
     },
     buttonContinue: {

@@ -5,13 +5,12 @@ import {
 import React from 'react';
 import Coffee from '../../component/Coffee';
 
-
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 
 
-
-export default function DashboardCoffee() {
+export default function DashboardCoffee(props) {
+    const { nome } = props.route?.params || {};
 
     const navigation = useNavigation();
 
@@ -22,15 +21,17 @@ export default function DashboardCoffee() {
 
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView>
+        
+            <SafeAreaView style={styles.container}>
                 <StatusBar backgroundColor="#DA251C" barStyle='light-content' />
-
+            <ScrollView style={styles.view}>
+            
+                
                 <Animatable.View delay={500} animation='fadeInLeft' style={styles.box_title}>
-
-                    <Text style={styles.title}>Café da manhã</Text>
-                    <Image source={require('../../../../assets/icon_coffee.png')}
-                    />
+                    <Text style={styles.nameUser}>Olá {nome}, escolha:</Text>
+                    <Text style={styles.title}>Café da manhã<Image source={require('../../../../assets/icon_coffee.png')}
+                    /></Text>
+                    
                 </Animatable.View>
 
                 <Animatable.View delay={500} animation='fadeInUp' style={styles.boxContent}>
@@ -38,40 +39,57 @@ export default function DashboardCoffee() {
                     <Coffee imageCoffe={biscoito} titleCoffee="Biscoito" />
                     <Coffee imageCoffe={choc} titleCoffee="Chocolate quente" />
                     <Coffee imageCoffe={iogurte} titleCoffee="Danone" />
+                    
                 </Animatable.View>
 
                 <Animatable.View style={styles.boxContinue} delay={1000} animation='fadeInLeft' >
-                    <TouchableOpacity style={styles.buttonContinue} onPress={() => navigation.navigate('DashboardFood')}>
+                    <TouchableOpacity style={styles.buttonContinue} onPress={() => navigation.navigate('DashboardFood', {nome})}>
                         <Text style={styles.textContinue}>Seguir</Text><Image source={require('../../../../assets/setaRight.png')} />
                     </TouchableOpacity>
                 </Animatable.View>
 
-
-
-            </ScrollView>
+                </ScrollView>
         </SafeAreaView>
+       
+        
     )
 }
 
 const styles = StyleSheet.create({
+    view:{
+        
+        width:'100%',
+        height:'100%',
+        
+        
+    },
     container: {
-        flex: 1,
+        flex:1,
         backgroundColor: '#DA251C',
-        padding: 5
-
-
+        alignItems:'center',
+        justifyContent:'center',
+        width:'100%',
+        
+    },
+    nameUser:{
+        color:'white',
+        fontSize:25,
+        textAlign: 'left',
+        fontWeight: 'bold',
+        marginLeft:10,
     },
     box_title: {
-        height: 110,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 5
+        height: 130,
+        width:'100%',
+        justifyContent:'center',
+        flexDirection: 'column',
+        gap: 20,
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 32,
         color: '#FFFFFF',
+        textAlign:'center'
     },
 
     boxContent: {
@@ -84,7 +102,8 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
         paddingTop: 30,
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        width:'99%'
     },
     boxContinue: {
         width: '100%',
@@ -107,5 +126,6 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 27,
         fontWeight: 'bold'
-    }
+    },
+   
 })

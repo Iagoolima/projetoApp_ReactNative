@@ -31,8 +31,9 @@ export default function Login() {
   function handleSignIn(data) {
     api.post('/login', data)
     .then(response => {
-      console.log(response.data);
-      navigation.navigate('DashboardCoffee');
+      const { user, nome } = response.data;
+      console.log(`Usuário: ${user}, Nome: ${nome}`);
+      navigation.navigate('DashboardCoffee', {nome});
     })
     .catch(error => {
       console.error(error);
@@ -41,10 +42,6 @@ export default function Login() {
       }
     });
 }
-
-
- 
-
   return (
     <View style={styles.container}>
       

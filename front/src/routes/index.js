@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import React from 'react';
 
 import Login from '../screens/login'
 import DashboardCoffee from '../screens/dashboardCoffee'
@@ -30,7 +31,7 @@ export default function Routes(){
             <Stack.Screen
              name="Exit"
              component={Exit}
-             options={{headerShown: false}}
+             options={{headerShown: false, gestureEnabled: false, headerLeft: null }}
              />
         </Stack.Navigator>
     )

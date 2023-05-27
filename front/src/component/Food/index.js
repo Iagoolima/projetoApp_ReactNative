@@ -41,7 +41,7 @@ export default function Food(props){
 const styles = StyleSheet.create({
     box:{
         height: 200,
-        width: 380,
+        width: '95%',
         borderWidth: 3,
         borderRadius: 40,
         borderColor: '#D3D3D3',

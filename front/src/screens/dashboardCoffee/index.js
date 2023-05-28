@@ -7,7 +7,9 @@ import Coffee from '../../component/Coffee';
 
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
+import api from '../../api';
 
+const moment = require('moment');
 
 export default function DashboardCoffee(props) {
     const { nome } = props.route?.params || {};
@@ -19,6 +21,19 @@ export default function DashboardCoffee(props) {
     const choc = require('../../../../assets/coffee/choc.png')
     const iogurte = require('../../../../assets/coffee/danone.png')
 
+    const saveCoffee = async (coffee) => {
+        try{
+            const formattedDate = moment().format('YYYY-MM-DD');
+            const response = await api.post('/dbcoffee', {
+                nome: nome, 
+                coffee:coffee,
+                date:formattedDate
+            })
+            console.log('seleção salva com sucesso:', response.data)
+        }catch (error){
+            console.error('erro ao salvar a seleção:', error)
+        }
+    };
 
     return (
         
@@ -35,10 +50,10 @@ export default function DashboardCoffee(props) {
                 </Animatable.View>
 
                 <Animatable.View delay={500} animation='fadeInUp' style={styles.boxContent}>
-                    <Coffee imageCoffe={bread} titleCoffee="Pão" />
-                    <Coffee imageCoffe={biscoito} titleCoffee="Biscoito" />
-                    <Coffee imageCoffe={choc} titleCoffee="Chocolate quente" />
-                    <Coffee imageCoffe={iogurte} titleCoffee="Danone" />
+                    <Coffee imageCoffe={bread} titleCoffee="Pão" saveCoffee={saveCoffee} nome={nome} />
+                    <Coffee imageCoffe={biscoito} titleCoffee="Biscoito" saveCoffee={saveCoffee} nome={nome}/>
+                    <Coffee imageCoffe={choc} titleCoffee="Chocolate quente" saveCoffee={saveCoffee} nome={nome}  /> 
+                    <Coffee imageCoffe={iogurte} titleCoffee="Danone" saveCoffee={saveCoffee} nome={nome}/>
                     
                 </Animatable.View>
 

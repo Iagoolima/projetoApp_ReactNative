@@ -1,84 +1,53 @@
-  const express = require('express');
-  const cors = require('cors');
+const express = require('express');
+const cors = require('cors');
 
-  const app = express();
-  const port = 3001;
-  const db = require('./src/database/index');
+const app = express();
+const port = 3001;
+const db = require('./src/database/index');
 
-  app.use(cors());
-  app.use(express.json());
+app.use(cors());
+app.use(express.json());
 
-  app.post('/login', (req, res) => {
-    const { user, nome } = req.body;
-    console.log(`tentativa de login com ${user}`);
-          
+const cron = require('node-cron');//timer de enviar no horario programado 
 
-    db.query(
-      'SELECT * FROM login WHERE user = ?',
-      [user, nome],
-      (error, results) =>{
-              if(error){
-                  console.log(`erro ao executar a query ${error}`);
-                  res.sendStatus(500);
-              }else{
-                  if(results.length > 0) {
-                    const usuario = {
-                      user: results[0].user,
-                      nome: results[0].nome
-                    };
-                      console.log(`usuario encontrado ${results[0].user} e ${results[0].nome}`);
-                      res.status(200).json(usuario);
-                  } else{
-                      console.log('usuario não encontrado');
-                      res.sendStatus(401);
-                  }
-          }
-      }
-    )
-  });
+const loginRouter = require('./src/modules/login')//rota para login 
+
+const postCoffeeRouter= require('./src/modules/postDataBase/postCoffee')//rota para enviar escolha do user para o banco de dados do café
+const postFoodRouter= require('./src/modules/postDataBase/postFood')//rota para enviar escolha do user para o banco de dados do almoço
+
+const deleteCoffeeRouter = require('./src/modules/deleteDataBase/deleteCoffee/')//rota para deletar escolha do user para o banco de dados do café
+const deleteFoodRouter = require('./src/modules/deleteDataBase/deleteFood/')//rota para deletar escolha do user para o banco de dados do almoço
+
+const coffeeEmailDay = require('./src/modules/submitEmail/coffeeEmail');//rota para envio do email do banco de dados sobre o café
+const foodEmailDay = require('./src/modules/submitEmail/foodEmail');//rota para envio do email do banco de dados sobre o almoço
+
+const cleanDatabase = require('./src/modules/CleanDataBase');//limpeza banco de dados
+
+app.use('/login', loginRouter);
 
 
+//post da escolha do usuario
+app.use('/dbcoffee', postCoffeeRouter);
+app.use('/dbfood', postFoodRouter);
 
-  app.post('/dbcoffee', (req, res) => {
-    const {nome, coffee, date } = req.body;
-    console.log(`Tentativa de salvar seleção: ${coffee} para o usuario ${nome} `)
+//delete da escolha do usuario
+app.use('/dbcoffee/delete', deleteCoffeeRouter )
+app.use('/dbfood/delete', deleteFoodRouter);
 
 
-  db.query(
-      'INSERT INTO coffe_selections (nome, coffee, date) VALUES (?, ?, ?)',
-      [nome, coffee, date],
-      (error, results) => {
-        if(error){
-          console.log(`erro ao salvar ${error}`)
-          res.sendStatus(500);
-        }else{
-          console.log(`seleção salva com sucesso : ${coffee}`);
-          res.sendStatus(200)
-        }
-      }
-  )
+cron.schedule('34 19 * * *', cleanDatabase);//função para liompeza de banco de dados
 
-  })
+cron.schedule('21 19 * * *', coffeeEmailDay);//Envio de email do café
 
-  app.delete('/dbcoffee', (req, res) => {
-    const { nome, coffee } = req.query;
-    console.log(`Tentativa de remover seleção: ${coffee} para o usuário ${nome}`);
+cron.schedule('20 19 * * *', foodEmailDay);//email do email do almoço
 
-    db.query(
-      'DELETE FROM coffe_selections WHERE nome = ? AND coffee = ?',
-      [nome, coffee],
-      (error, results) => {
-        if (error) {
-          console.log(`Erro ao remover a seleção ${error}`);
-          res.sendStatus(500);
-        } else {
-          console.log(`Seleção removida com sucesso: ${coffee} e nome ${nome}`);
-          res.sendStatus(200);
-        }
-      }
-    );
-  });
+//os email n pode ser programado no mesmo minuto, precisa ser no minimo um minuto após o outro
 
-  app.listen(port, () => {
-    console.log(`Servidor do back end está rodando na porta ${port}.`);
-  });
+
+
+app.listen(port, () => {
+  console.log(`Servidor do back end está rodando na porta ${port}.`);
+});
+
+
+

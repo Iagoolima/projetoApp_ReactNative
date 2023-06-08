@@ -11,4 +11,7 @@ As opções mostradas no video, como as imagens e os nomes dos alimentos, são a
 
 
 
-https://user-images.githubusercontent.com/110433346/244486502-76db523a-0374-4304-bdd0-46b7720be0a2.jpeg
+![img_one](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/76db523a-0374-4304-bdd0-46b7720be0a2)
+![img_two](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/8cc95901-4f6d-4134-ae1b-a35469f4c9da)
+![img_three](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/f849420b-4226-49e9-bb87-b1a70d083d96)
+![img_four](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/fc80d88a-28fc-4e26-a8b9-7a2a623170c4)

@@ -9,7 +9,7 @@ Após o envio do e-mail, todo o conteúdo votado no mesmo dia é automaticamente
 
 As opções mostradas no video, como as imagens e os nomes dos alimentos, são apenas exemplos do que pode ser utilizado no aplicativo. A personalização das opções será adaptada de acordo com as necessidades específicas de cada escola.
 
-![img_one](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/76db523a-0374-4304-bdd0-46b7720be0a2){:width="100px"}
-![img_two](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/8cc95901-4f6d-4134-ae1b-a35469f4c9da){:width="100px"}
-![img_three](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/f849420b-4226-49e9-bb87-b1a70d083d96){:width="100px"}
-![img_four](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/fc80d88a-28fc-4e26-a8b9-7a2a623170c4){:width="100px"}
+![img_one](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/76db523a-0374-4304-bdd0-46b7720be0a2)
+![img_two](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/8cc95901-4f6d-4134-ae1b-a35469f4c9da)
+![img_three](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/f849420b-4226-49e9-bb87-b1a70d083d96)
+![img_four](https://github.com/Iagoolima/projetoApp_ReactNative/assets/110433346/fc80d88a-28fc-4e26-a8b9-7a2a623170c4)

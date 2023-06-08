@@ -11,3 +11,4 @@ As opções mostradas no video, como as imagens e os nomes dos alimentos, são a
 
 
 
+https://user-images.githubusercontent.com/110433346/244486502-76db523a-0374-4304-bdd0-46b7720be0a2.jpeg

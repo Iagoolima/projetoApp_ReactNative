@@ -3,24 +3,23 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import api from '../../api';
 
+
+
 export default function Coffee(props){
     const { nome } = props.route?.params || {};
 
     const[confirmed, setConfirmed] = useState(false);
-    const[value, setValue] = useState(0);
 
     const handleButtonClick = async() =>{
         if(confirmed){
-            setValue(0);
             setConfirmed(false);
             try {
-                await api.delete(`/dbcoffee?nome=${props.nome}&coffee=${props.titleCoffee}`);
-                console.log('Seleção removida com sucesso');
+                await api.delete(`/dbcoffee/delete?nome=${props.nome}&coffee=${props.titleCoffee}`);
+                console.log('Seleção removida com sucesso do café');
               } catch (error) {
-                console.error('Erro ao remover a seleção:', error);
+                console.error('Erro ao remover a seleção do café:', error);
               }
         } else {
-            setValue(props.titleCoffee);
             setConfirmed(true);
             props.saveCoffee(props.titleCoffee);
         }

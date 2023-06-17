@@ -35,11 +35,12 @@ app.use('/dbcoffee/delete', deleteCoffeeRouter )
 app.use('/dbfood/delete', deleteFoodRouter);
 
 
-cron.schedule('34 19 * * *', cleanDatabase);//função para liompeza de banco de dados
+cron.schedule('14 13 * * *', coffeeEmailDay);//Envio de email do café
 
-cron.schedule('21 19 * * *', coffeeEmailDay);//Envio de email do café
+cron.schedule('15 13 * * *', foodEmailDay);//email do email do almoço
 
-cron.schedule('20 19 * * *', foodEmailDay);//email do email do almoço
+cron.schedule('42 00 * * *', cleanDatabase);//função para liompeza de banco de dados
+
 
 //os email n pode ser programado no mesmo minuto, precisa ser no minimo um minuto após o outro
 

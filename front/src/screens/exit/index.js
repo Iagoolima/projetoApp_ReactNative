@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity, StatusBar, BackHandler } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 
@@ -18,6 +18,21 @@ export default function Exit(props) {
 
     const { nome } = props.route.params;
     const navigation = useNavigation();
+
+    
+    useEffect(()=>{
+        const handleBackPress = () =>{
+            return true;
+        }
+
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+        return ()=>{
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress)
+        }
+    }, []);
+
+
 
     return (
         <View style={styles.container}>

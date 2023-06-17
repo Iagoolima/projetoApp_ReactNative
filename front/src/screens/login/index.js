@@ -20,25 +20,29 @@ const schema = yup.object({
 })
 
 export default function Login() {
-  const navigation = useNavigation();
-  const [passwordError, setPasswordError] = useState(false);
 
+  const navigation = useNavigation();//utilizado para navegar entre telas
+
+  const [passwordError, setPasswordError] = useState(false);//vericação de erro do usuarioo
+
+
+  //usado para fazer verificações com yup 
   const {control, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema)
   });
 
-
+  //função pegando o user e enviando para o back end atraves da api axios
   function handleSignIn(data) {
-    api.post('/login', data)
+    api.post('/login', data)//enviado a rota login, caso a verificação com banco de dados confirme que esse usuario exista, ele retorna true, e assim indo pra segunda tela
     .then(response => {
       const { user, nome } = response.data;
       console.log(`Usuário: ${user}, Nome: ${nome}`);
-      navigation.navigate('DashboardCoffee', {nome});
+      navigation.navigate('DashboardCoffee', {nome});//envio para tela dashboard caso seja true 
     })
     .catch(error => {
       console.error(error);
-      if (error.response && error.response.status === 401) {
-        setPasswordError(true);
+      if (error.response && error.response.status === 401) {//caso tenha erro com a senha, ele retorna o erro 401
+        setPasswordError(true);// e assim ativando a função que informa a senha invalida na tela 
       }
     });
 }
@@ -46,14 +50,16 @@ export default function Login() {
     <View style={styles.container}>
       
         <View style={styles.boxTop}> 
-          <Animatable.Image delay={1000}
+        
+           <Animatable.Image delay={1000}
           animation="flipInX"
           source={require('../../../../assets/logo_sesi_red.jpg')}
           style={styles.imageLogo}
-          /> 
+          />  
           
         </View>
         
+        {/* //utilizado para corrigir bug de telcado no iphone  */}
         <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -62,6 +68,8 @@ export default function Login() {
           
             <Text style={styles.textColor}>Bem vindo !</Text>
 
+
+            {/* elemento do react hook form para validar usuario */}
             <Controller
             control={control}
             name='user'
@@ -69,7 +77,7 @@ export default function Login() {
               <TextInput style={styles.inputUser}
                placeholder ="Digite seu R.A"
                placeholderTextColor="#9EA0A4"
-               keyboardType="numeric"
+               keyboardType="numeric"//tipo de teclado
 
                onBlur={onBlur}
                onChangeText={onChange} 
@@ -77,7 +85,10 @@ export default function Login() {
             )}
             />
 
+            {/* mensagens de erro que aparece na tela do yup */}
             {errors.user && <Text style={styles.textError}>{errors.user?.message}</Text>}
+            
+            {/* erro de senha invalida */}
             {passwordError && <Text style={styles.textError}>Senha inválida</Text>}
             
             <TouchableOpacity style={styles.buttonColor} onPress={handleSubmit(handleSignIn) }>
@@ -117,6 +128,7 @@ const styles = StyleSheet.create({
       paddingBottom: 10,
 
     },
+  
     inputUser:{
         borderWidth: 1,
         borderColor: '#FFFFFF',

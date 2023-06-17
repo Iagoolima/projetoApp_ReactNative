@@ -19,7 +19,7 @@ export default function Routes(){
             <Stack.Screen
              name="DashboardCoffee"
              component={DashboardCoffee}
-             options={{headerShown: false}}
+             options={{headerShown: false,gestureEnabled: false, headerLeft: null }}
              />
 
             <Stack.Screen

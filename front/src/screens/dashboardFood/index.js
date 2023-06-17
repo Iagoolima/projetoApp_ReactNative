@@ -3,23 +3,42 @@ import {
     ScrollView, Image, TouchableOpacity
 } from 'react-native';
 import React from 'react';
-import Food from '../../component/Food';
 
+import Food from '../../component/Food';
 
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
+import api from '../../api';
 
+import {
+    frango,
+    bife, 
+    batata,
+    macarrao
+} from '../../component/imageImport';
+
+
+const moment = require('moment');// elemtno que proporcionar o horario
 
 
 export default function DashboardFood(props) {
     const { nome } = props.route?.params || {};
+
     const navigation = useNavigation();
-
-    const frango = require('../../../../assets/food/frango.png')
-    const bife = require('../../../../assets/food/carne.png')
-    const batata = require('../../../../assets/food/batata.png')
-    const macarrao = require('../../../../assets/food/macarrao.png')
-
+ //metodo utilizado para salvar o alimento no banco de dados quando clicado
+    const saveFood  = async(food) =>{
+        try{
+            const formattedDate = moment(). format('YYYY-MM-DD')// aqui utilizando o moment para pegar data 
+            const response = await api.post('/dbfood',{
+                nome: nome,
+                food: food,
+                date: formattedDate
+            })
+            console.log('Seleção salva com sucesso do almoço:', response.data)
+        }catch(error){
+            console.error('erro ao salvar a seleção do almoço:', error)
+        }
+    };
 
     return (
 
@@ -34,10 +53,10 @@ export default function DashboardFood(props) {
                 </Animatable.View>
 
                 <Animatable.View delay={500} animation='fadeInUp' style={styles.boxContent}>
-                    <Food imageFood={frango} titleFood="Frango" />
-                    <Food imageFood={bife} titleFood="Bife de carne" />
-                    <Food imageFood={batata} titleFood="Batata" />
-                    <Food imageFood={macarrao} titleFood="Macarrão" />
+                    <Food imageFood={frango} titleFood="Frango" saveFood={saveFood} nome={nome} />
+                    <Food imageFood={bife} titleFood="Bife de carne" saveFood={saveFood} nome={nome} />
+                    <Food imageFood={batata} titleFood="Batata" saveFood={saveFood} nome={nome}/>
+                    <Food imageFood={macarrao} titleFood="Macarrão" saveFood={saveFood} nome={nome}/>
 
                 </Animatable.View>
 
@@ -92,7 +111,7 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        width: '99%'
+        width: '100%'
     },
     boxOption: {
         width: '100%',

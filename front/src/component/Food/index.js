@@ -1,19 +1,25 @@
 import React, {useState} from "react";
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import api from '../../api';
 
 export default function Food(props){
 
-    const[confirmed, setConfirmed] = useState(false);
-    const[value, setValue] = useState(0);
+const[confirmed, setConfirmed] = useState(false);
 
-    const handleButtonClick = () =>{
+    ///função que quando remove a confirmação ele remove o q foi inserido
+    const handleButtonClick = async() =>{
         if(confirmed){
-            setValue('batata');
-            setConfirmed(false);
-        } else {
-            setValue('frango');
-            setConfirmed(true);
+            setConfirmed(false);//se estiver falso, ele se mantem na cor vermelha
+            try{
+                await api.delete(`/dbfood/delete?nome=${props.nome}&food=${props.titleFood}`)
+                console.log('seleção removida com sucesso do almoço:')
+            }catch(error){
+                console.error('Erro ao remover a seleção do almoço:',error);
+            }
+            } else {
+            setConfirmed(true);//quando true o botao fica verde
+            props.saveFood(props.titleFood)
         }
     }
     
@@ -28,7 +34,8 @@ export default function Food(props){
                 <TouchableOpacity style={[styles.button, confirmed && styles.buttonConfirmed]}
                 onPress={handleButtonClick}>
 
-                    <Text style={styles.confirm}>{confirmed ? 'Confirmado' : 'Confirmar'}</Text>
+                    {/* botao que muda de cor de acordo com o click */}
+                    <Text style={styles.confirm}>{confirmed ? 'Confirmado' : 'Confirmar'}</Text> 
                 </TouchableOpacity>
                 
             </View>
